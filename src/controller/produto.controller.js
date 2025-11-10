@@ -1,3 +1,4 @@
+import { response } from "express";
 import produtoService from "../services/produto.service.js";
 
 async function createProdutoController(request, response) {
@@ -11,6 +12,29 @@ async function createProdutoController(request, response) {
     }
 }
 
+async function findAllProdutoController(request, response) {
+    try {
+        const produtos = await produtoService.findAllProdutoService();
+        response.status(200).send({produtos});
+    } catch(error) {
+        response.status(404).send(error.message);
+    }
+}
+
+async function findProdutoByIdController(request, response) {
+
+    const {id} = request.params;
+
+    try {
+        const produto = await produtoService.findProdutoByIdService(id);
+        response.status(200).send({produto});
+    } catch(error) {
+        response.status(404).send(error.message);
+    }
+}
+
 export default {
-    createProdutoController
+    createProdutoController,
+    findAllProdutoController,
+    findProdutoByIdController
 }

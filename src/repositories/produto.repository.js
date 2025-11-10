@@ -38,8 +38,45 @@ function createProdutoRepository(novoProduto) {
 
 }
 
+function findAllProdutoRepository() {
+    return new Promise((resolve, reject) => {
+        db.all(
+            `SELECT * FROM produto`,
+            [],
+            (error, rows) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(rows);
+                }
+            }
+        );
+    });
+}
+
+function findProdutoByIdRepository(id) {
+    return new Promise((resolve, reject) => {
+        db.get(
+            `SELECT 
+                * 
+            FROM produto
+            WHERE id = ?`,
+            [id],
+            (error, row) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(row);
+                }
+            }
+        );
+    });
+}
+
 export default {
-    createProdutoRepository
+    createProdutoRepository,
+    findAllProdutoRepository,
+    findProdutoByIdRepository
 }
 
 
