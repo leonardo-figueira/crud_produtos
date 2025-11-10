@@ -33,8 +33,23 @@ async function findProdutoByIdController(request, response) {
     }
 }
 
+async function updateProdutoController(request, response) {
+    
+    const {id} = request.params;
+    const novoProduto = request.body;
+
+    try {
+        const produto = await produtoService.updateProdutoService(id, novoProduto);
+        response.status(201).send({produto});
+    } catch(error) {
+        response.status(400).send(error.message);
+    }
+
+}
+
 export default {
     createProdutoController,
     findAllProdutoController,
-    findProdutoByIdController
+    findProdutoByIdController,
+    updateProdutoController
 }

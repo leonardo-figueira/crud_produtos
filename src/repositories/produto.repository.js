@@ -73,10 +73,41 @@ function findProdutoByIdRepository(id) {
     });
 }
 
+function updateProdutoRepository(id, produto) {
+    return new Promise((resolve, reject) => {
+
+        const {
+            nome,
+            valor,
+            tipo
+        } = produto;
+
+        db.run(
+            `UPDATE produto
+            SET nome = ?,      
+                valor = ?,
+                tipo = ?
+            WHERE id = ?`,
+            [nome, valor, tipo, id],
+            (error) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve({
+                        id,
+                        ...produto
+                    });
+                }
+            }
+        )
+    });
+}
+
 export default {
     createProdutoRepository,
     findAllProdutoRepository,
-    findProdutoByIdRepository
+    findProdutoByIdRepository,
+    updateProdutoRepository
 }
 
 
