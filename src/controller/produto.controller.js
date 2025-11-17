@@ -40,7 +40,20 @@ async function updateProdutoController(request, response) {
 
     try {
         const produto = await produtoService.updateProdutoService(id, novoProduto);
-        response.status(201).send({produto});
+        response.status(202).send({produto});
+    } catch(error) {
+        response.status(400).send(error.message);
+    }
+
+}
+
+async function deleteProdutoController(request, response) {
+    
+    const {id} = request.params;
+
+    try {
+        const retorno = await produtoService.deleteProdutoService(id);
+        response.status(200).send({retorno});
     } catch(error) {
         response.status(400).send(error.message);
     }
@@ -51,5 +64,6 @@ export default {
     createProdutoController,
     findAllProdutoController,
     findProdutoByIdController,
-    updateProdutoController
+    updateProdutoController,
+    deleteProdutoController
 }

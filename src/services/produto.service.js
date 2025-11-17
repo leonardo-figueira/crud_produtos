@@ -41,9 +41,26 @@ async function updateProdutoService(id, novoProduto) {
     return produtoAtualizado;
 }
 
+async function deleteProdutoService(id) {
+    const produto = await produtoRepository.findProdutoByIdRepository(id);
+
+    if (!produto) {
+        throw new Error("Produto não encontrado!");
+    }
+
+    const mensagemRetorno =  await produtoRepository.deleteProdutoRepository(id);
+
+    if (!mensagemRetorno) {
+        throw new Error("Erro ao deletar produto!");
+    }
+
+    return mensagemRetorno;
+}
+
 export default {
     createProdutoService,
     findAllProdutoService,
     findProdutoByIdService,
-    updateProdutoService
+    updateProdutoService,
+    deleteProdutoService
 }

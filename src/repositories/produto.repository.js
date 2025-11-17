@@ -103,11 +103,31 @@ function updateProdutoRepository(id, produto) {
     });
 }
 
+function deleteProdutoRepository(id) {
+    return new Promise((resolve, reject) => {
+        db.run(
+            `DELETE FROM produto
+            WHERE id = ?`,
+            [id],
+            (error) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve({
+                        message: "Produto excluído com sucesso"
+                    });
+                }
+            }
+        );
+    });
+}
+
 export default {
     createProdutoRepository,
     findAllProdutoRepository,
     findProdutoByIdRepository,
-    updateProdutoRepository
+    updateProdutoRepository,
+    deleteProdutoRepository
 }
 
 
