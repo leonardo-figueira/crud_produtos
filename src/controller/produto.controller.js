@@ -40,7 +40,7 @@ async function updateProdutoController(request, response) {
 
     try {
         const produto = await produtoService.updateProdutoService(id, novoProduto);
-        response.status(202).send({produto});
+        response.status(200).send({produto});
     } catch(error) {
         response.status(400).send(error.message);
     }
